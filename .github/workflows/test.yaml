@@ -22,7 +22,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-	  - name: Cocos Creator Build
+      - name: Cocos Creator Build
         uses: miggene/cocos-build@v1.2.3
         with:
           cocos_version: 3.8.3
