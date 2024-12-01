@@ -26,3 +26,4 @@ jobs:
         uses: miggene/cocos-build@v1.2.3
         with:
           cocos_version: 3.8.3
+          build_path: "project://build"
