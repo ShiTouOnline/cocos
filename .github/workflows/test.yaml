@@ -1,0 +1,28 @@
+name: 'build-test'
+on:
+  # pull_request:
+  push:
+    branches:
+      # - develop
+      - main
+      # - 'releases/*'
+
+jobs:
+  # prepare:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: |
+  #         npm install
+  #     - run: |
+  #         npm run build && npm run format && npm run lint && npm run package
+  # - run: |
+  #     npm run all
+  build: # make sure the action works on a clean machine without building
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+	  - name: Cocos Creator Build
+        uses: miggene/cocos-build@v1.2.3
+        with:
+          cocos_version: 3.8.3
