@@ -23,6 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Cocos Creator Build
-        uses: miggene/cocos-build@v1.2.3
+        uses: lyzz0612/cocos-build@v1.0.0
         with:
-          cocos_version: 3.8.4
+          config_path: ./web-desktop.json
