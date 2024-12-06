@@ -22,7 +22,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Cocos Creator Build
-        uses: lyzz0612/cocos-build@v1.0.1
+
+      - name: Cocos Creator Build Use ConfigPath
+        uses: lyzz0612/cocos-build@1.0.1
         with:
           config_path: ./web-desktop.json
+
