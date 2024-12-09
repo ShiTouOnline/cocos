@@ -20,6 +20,10 @@ jobs:
   #     npm run all
   build: # make sure the action works on a clean machine without building
     runs-on: macos-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: "us-east-1"
     steps:
       - uses: actions/checkout@v2
 
@@ -28,3 +32,10 @@ jobs:
         with:
           config_path: ./web-desktop.json
 
+      - name: Deploy
+        uses: lbertenasco/s3-deploy@v1
+        with:
+          folder: build
+          bucket: "cocos-test.helix.city"
+          dist-id: "E1E042I8V90ZQT"
+          invalidation: /*
