@@ -19,7 +19,7 @@ jobs:
   # - run: |
   #     npm run all
   build: # make sure the action works on a clean machine without building
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -41,7 +41,7 @@ jobs:
           bucket: "cocos-test.helix.city"
           # source-files: build/web-mobile
           source-files: |
-            settings/*
+            settings
           
     
       - name: aws-s3-cloudfront
