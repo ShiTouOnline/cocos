@@ -42,7 +42,7 @@ jobs:
           # source-files: build/web-mobile
           source-files: |
             settings
-          target-dir: "./"
+          target-dir: "."
           
     
       - name: aws-s3-cloudfront
