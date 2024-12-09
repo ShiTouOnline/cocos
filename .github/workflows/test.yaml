@@ -1,43 +1,38 @@
-name: 'build-test'
+name: 'CI/CD'
 on:
-  # pull_request:
-  push:
-    branches:
-      # - develop
-      - main
-      # - 'releases/*'
+  workflow_dispatch:
+    inputs:
+      branche:
+        description: 'Select Branche'
+        required: true
+        options:
+        - 'main'
+        default: 'main'
 
 jobs:
-  # prepare:
-  #   runs-on: macos-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - run: |
-  #         npm install
-  #     - run: |
-  #         npm run build && npm run format && npm run lint && npm run package
-  # - run: |
-  #     npm run all
-  build: # make sure the action works on a clean machine without building
+  build:
     runs-on: macos-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: "us-east-1"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branche }}
 
       - name: Cocos Creator Build Use ConfigPath
         uses: lyzz0612/cocos-build@1.0.1
         with:
           config_path: ./web-desktop.json
-
+   
       - name: Configure AWS Credentials 2
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       - name: Upload Files To S3 and Cloudfront Create Invalidation
         run: |
           aws s3 sync settings s3://cocos-test.helix.city \
