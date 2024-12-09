@@ -40,7 +40,9 @@ jobs:
           aws-region: us-east-1
           bucket: "cocos-test.helix.city"
           # source-files: build/web-mobile
-          source-files: settings
+          source-files: |
+            settings/*
+          
     
       - name: aws-s3-cloudfront
         uses: Comori/aws-s3@v0.1.3
