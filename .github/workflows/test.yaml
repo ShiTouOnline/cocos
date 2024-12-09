@@ -32,25 +32,23 @@ jobs:
       #   with:
       #     config_path: ./web-desktop.json
 
-      - name: aws-s3-cloudfront
-        uses: Comori/aws-s3@v0.1.3
+      - name: Configure AWS Credentials 2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-          bucket: "cocos-test.helix.city"
-          # source-files: build/web-mobile
-          source-files: |
-            settings
-          target-dir: "settings"
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: aws s3 ls s3://cocos-test.helix.city
+        run: |
+          aws s3 ls s3://cocos-test.helix.city
           
     
-      - name: aws-s3-cloudfront
-        uses: Comori/aws-s3@v0.1.3
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-          invalidation-path: |
-            /*
-          distribution-id: "E1E042I8V90ZQT"
+      # - name: aws-s3-cloudfront
+      #   uses: Comori/aws-s3@v0.1.3
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
+      #     invalidation-path: |
+      #       /*
+      #     distribution-id: "E1E042I8V90ZQT"
