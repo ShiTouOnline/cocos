@@ -27,15 +27,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cocos Creator Build Use ConfigPath
-        uses: lyzz0612/cocos-build@1.0.1
+      # - name: Cocos Creator Build Use ConfigPath
+      #   uses: lyzz0612/cocos-build@1.0.1
+      #   with:
+      #     config_path: ./web-desktop.json
+    
+      - name: aws-s3-cloudfront
+        uses: Comori/aws-s3@v0.1.3
         with:
-          config_path: ./web-desktop.json
-
-      - name: Deploy
-        uses: lbertenasco/s3-deploy@v1
-        with:
-          folder: build
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
           bucket: "cocos-test.helix.city"
-          dist-id: "E1E042I8V90ZQT"
-          invalidation: /*
+          # source-files: build/web-mobile
+          source-files: settings
+          invalidation-path: |
+            /*
+          distribution-id: "E1E042I8V90ZQT"
